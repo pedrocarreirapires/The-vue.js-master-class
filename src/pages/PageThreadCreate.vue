@@ -1,79 +1,55 @@
 <template>
-  <div v-if="asyncDataStatus_ready" className="col-full push-top">
+  <div class="col-full push-top">
 
     <h1>Create new thread in <i>{{ forum.name }}</i></h1>
 
-    <ThreadEditor
-      ref="editor"
-      @save="save"
-      @cancel="cancel"
-    />
+    <form @submit.prevent="save">
+      <div class="form-group">
+        <label for="thread_title">Title:</label>
+        <input v-model="title" type="text" id="thread_title" class="form-input" name="title">
+      </div>
+
+      <div class="form-group">
+        <label for="thread_content">Content:</label>
+        <textarea iv-model="text" d="thread_content" class="form-input" name="content" rows="8" cols="140"></textarea>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-ghost">Cancel</button>
+        <button class="btn btn-blue" type="submit" name="Publish">Publish </button>
+      </div>
+    </form>
   </div>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import ThreadEditor from '@/components/ThreadEditor'
+// import {save} from 'babel-register/lib/cache'
 
 export default {
-  components: {
-    ThreadEditor
-  },
   props: {
-    forumId: {
-      type: String,
-      required: true
+    forum: {
+      required: true,
+      type: Object
     }
   },
   data () {
     return {
-      saved: false
-    }
-  },
-  computed: {
-    forum () {
-      return this.$store.state.forums.items[this.forumId]
-    },
-    hasUnsavedChanges () {
-      return (this.$refs.editor.form.title || this.$refs.editor.form.text) && !this.saved
+      title: '',
+      text: ''
     }
   },
   methods: {
-    ...mapActions('threads', ['createThread']),
-    ...mapActions('forums', ['fetchForum']),
-    save ({title, text}) {
-      this.createThread({
+    save () {
+      this.$store.dispatch('createThread', {
         forumId: this.forum['.key'],
-        title,
-        text
-      }).then(thread => {
-        this.saved = true
-        this.$router.push({name: 'ThreadShow', params: {id: thread['.key']}})
+        title: this.title,
+        text: this.text
       })
-    },
-    cancel () {
-      this.$router.push({name: 'Forum', params: {id: this.forum['.key']}})
-    }
-  },
-  created () {
-    this.fetchForum({id: this.forumId})
-      .then(() => {
-      })
-  },
-  beforeRouteLeave (to, from, next) {
-    if (this.hasUnsavedChanges) {
-      const confirmed = window.confirm('Are you sure you want to leave? Unsaved changes will be lost.')
-      if (confirmed) {
-        next()
-      } else {
-        next(false)
-      }
-    } else {
-      next()
     }
   }
 }
 </script>
 
 <style scoped>
+
 </style>
