@@ -28,14 +28,12 @@ import PostList from '@/components/PostList'
 import UserProfileCard from '@/components/UserProfileCard'
 import UserProfileCardEditor from '@/components/UserProfileCardEditor'
 import {mapGetters} from 'vuex'
-import asyncDataStatus from '@/mixins/asyncDataStatus'
 export default {
   components: {
     PostList,
     UserProfileCard,
     UserProfileCardEditor
   },
-  mixins: [asyncDataStatus],
   props: {
     edit: {
       type: Boolean,
@@ -52,7 +50,7 @@ export default {
   },
   created () {
     this.$store.dispatch('posts/fetchPosts', {ids: this.user.posts})
-      .then(() => this.asyncDataStatus_fetched())
+      .then(() => {})
   }
 }
 </script>

@@ -14,13 +14,11 @@
 <script>
 import {mapActions} from 'vuex'
 import ThreadEditor from '@/components/ThreadEditor'
-import asyncDataStatus from '@/mixins/asyncDataStatus'
 
 export default {
   components: {
     ThreadEditor
   },
-  mixins: [asyncDataStatus],
   props: {
     forumId: {
       type: String,
@@ -60,7 +58,6 @@ export default {
   created () {
     this.fetchForum({id: this.forumId})
       .then(() => {
-        this.asyncDataStatus_fetched()
       })
   },
   beforeRouteLeave (to, from, next) {
