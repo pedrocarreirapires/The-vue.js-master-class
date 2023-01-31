@@ -23,13 +23,11 @@
 </template>
 
 <script>
-// import {save} from 'babel-register/lib/cache'
-
 export default {
   props: {
     forum: {
-      required: true,
-      type: Object
+      type: Object,
+      required: true
     }
   },
   data () {

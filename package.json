@@ -1,8 +1,8 @@
 {
-  "name": "vue.js",
+  "name": "vueschool-forum",
   "version": "1.0.0",
-  "description": "vue.js",
-  "author": "ruiguitos <ruiguitos@hotmail.com>",
+  "description": "Vue.js",
+  "author": "Pedro Pires <pedro_10pires@hotmail.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
