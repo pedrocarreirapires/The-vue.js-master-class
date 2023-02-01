@@ -3,37 +3,24 @@
 
     <h1>Create new thread in <i>{{ forum.name }}</i></h1>
 
-    <form @submit.prevent="save">
-      <div class="form-group">
-        <label for="thread_title">Title:</label>
-        <input v-model="title" type="text" id="thread_title" class="form-input" name="title">
-      </div>
+    <ThreadEditor
+    @save="save"
+    @cancel="cancel"
+    />
 
-      <div class="form-group">
-        <label for="thread_content">Content:</label>
-        <textarea v-model="text" d="thread_content" class="form-input" name="content" rows="8" cols="140"></textarea>
-      </div>
-
-      <div class="btn-group">
-        <button @click.prevent="cancel" class="btn btn-ghost">Cancel</button>
-        <button class="btn btn-blue" type="submit" name="Publish">Publish </button>
-      </div>
-    </form>
   </div>
 </template>
 
 <script>
+import ThreadEditor from '../components/ThreadEditor.vue'
 export default {
+  components: {
+    ThreadEditor
+  },
   props: {
     forumId: {
       type: String,
       required: true
-    }
-  },
-  data () {
-    return {
-      title: '',
-      text: ''
     }
   },
   computed: {
@@ -42,11 +29,11 @@ export default {
     }
   },
   methods: {
-    save () {
+    save ({title, text}) { // pq vem do ThreadEditor por parametro
       this.$store.dispatch('createThread', {
         forumId: this.forum['.key'],
-        title: this.title,
-        text: this.text
+        title,
+        text
       }).then(thread => {
         this.$router.push({name: 'ThreadShow', params: {id: thread['.key']}})
       })
