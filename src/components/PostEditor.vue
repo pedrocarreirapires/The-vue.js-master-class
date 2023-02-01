@@ -11,7 +11,8 @@
     </div>
 
     <div class="form-actions">
-      <button class="btn-blue">Submit Post</button>
+      <button v-if="isUpdate" @click.prevent="cancel" class="btn btn-ghost">Cancel</button>
+      <button class="btn-blue">{{ isUpdate ? 'Update' : 'Submit Post' }}</button>
     </div>
   </form>
 </template>
@@ -54,7 +55,9 @@ export default {
        // pasing to the parent
       return this.$store.dispatch('createPost', post)
     },
-
+    cancel () {
+      this.$emit('cancel')
+    },
     update () {
       const payload = {
         id: this.post['.key'],
