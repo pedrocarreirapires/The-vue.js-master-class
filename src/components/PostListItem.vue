@@ -6,7 +6,7 @@
       <a href="profile.html#profile-details">
         <img class="avatar-large" :src="user.avatar" alt="">
       </a>
-      <p class="desktop-only text-small">{{userPostCount}}</p>
+      <p class="desktop-only text-small">{{userPostsCount}}</p>
     </div>
 
 
@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import {countObjectProperties} from '../utils'
 import PostEditor from './PostEditor.vue'
 export default {
   components: {
@@ -60,8 +59,8 @@ export default {
     user () {
       return this.$store.state.users[this.post.userId]
     },
-    userPostCount () {
-      return countObjectProperties(this.user.posts)
+    userPostsCount () {
+      return this.$store.getters.userPostsCount(this.post.userId)
     }
   }
 
