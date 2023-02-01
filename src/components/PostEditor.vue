@@ -20,24 +20,50 @@
 export default {
   props: {
     threadId: {
-      required: true
+      required: false
+    },
+    post: {
+      type: Object
     }
   },
+
   data () {
     return {
-      txtPost: ''
+      txtPost: this.post ? this.post.text : ''
+    }
+  },
+  computed: {
+    isUpdate () {
+      return !!this.post
     }
   },
   methods: {
     save () {
+      this.persist()
+        .then(post => {
+          this.$emit('save', {post})
+        })
+    },
+    create () {
       const post = {
         text: this.txtPost,
         threadId: this.threadId
 
       }
       this.txtPost = ''
-      this.$emit('save', {post})
-      this.$store.dispatch('createPost', post)
+       // pasing to the parent
+      return this.$store.dispatch('createPost', post)
+    },
+
+    update () {
+      const payload = {
+        id: this.post['.key'],
+        text: this.txtPost
+      }
+      return this.$store.dispatch('updatePost', payload)
+    },
+    persist () {
+      return this.isUpdate ? this.update() : this.create()
     }
   }
 }
