@@ -32,6 +32,7 @@
 
     </div>
     <div class="post-date text-faded">
+      <div v-if="post.edited" class="avatar-edit">Edited</div>
         <AppDate :timestamp="post.publishedAt"/>
     </div>
   </div>
