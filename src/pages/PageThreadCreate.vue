@@ -11,7 +11,7 @@
 
       <div class="form-group">
         <label for="thread_content">Content:</label>
-        <textarea iv-model="text" d="thread_content" class="form-input" name="content" rows="8" cols="140"></textarea>
+        <textarea v-model="text" d="thread_content" class="form-input" name="content" rows="8" cols="140"></textarea>
       </div>
 
       <div class="btn-group">
@@ -25,8 +25,8 @@
 <script>
 export default {
   props: {
-    forum: {
-      type: Object,
+    forumId: {
+      type: String,
       required: true
     }
   },
@@ -34,6 +34,11 @@ export default {
     return {
       title: '',
       text: ''
+    }
+  },
+  computed: {
+    forum () {
+      return this.$store.state.forums[this.forumId]
     }
   },
   methods: {
