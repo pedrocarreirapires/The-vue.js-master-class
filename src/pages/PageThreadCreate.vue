@@ -29,7 +29,7 @@ export default {
     }
   },
   methods: {
-    save ({title, text}) { // pq vem do ThreadEditor por parametro
+    save ({title, text}) { // pq vem do ThreadEditor por 'payload'
       this.$store.dispatch('createThread', {
         forumId: this.forum['.key'],
         title,

@@ -12,7 +12,7 @@
 
     <div class="btn-group">
       <button @click.prevent="cancel" class="btn btn-ghost">Cancel</button>
-      <button class="btn btn-blue" type="submit" name="Publish">Publish </button>
+      <button class="btn btn-blue" type="submit" name="Publish">{{isUpdate ? 'Update' : 'Publish'}}</button>
     </div>
   </form>
 </template>
@@ -37,6 +37,13 @@ export default {
       }
     }
   },
+
+  computed: {
+    isUpdate () {
+      return !!this.title
+    }
+  },
+
   methods: {
     save () {
       this.$emit('save', {title: this.form.title, text: this.form.text})
