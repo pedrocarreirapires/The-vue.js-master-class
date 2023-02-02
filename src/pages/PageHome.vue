@@ -17,6 +17,24 @@ export default {
     categories () {
       return Object.values(this.$store.state.categories)
     }
+  },
+  beforeCreate () {
+    console.log('beforeCreate', this.categories)
+  },
+  created () {
+    console.log('created', this.categories)
+  },
+  beforeMount () {
+    console.log('beforeMount', this.categories)
+  },
+  mounted () {
+    console.log('mounted', this.categories, this.$el.innerText)
+  },
+  beforeDestroy () {
+    console.log('beforeDestroy', this.categories)
+  },
+  destroyed () {
+    console.log('destroyed', this.categories)
   }
 }
 </script>
