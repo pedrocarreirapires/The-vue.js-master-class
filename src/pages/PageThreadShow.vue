@@ -15,7 +15,7 @@
 
     <p>
       By <a href="#" class="link-unstyled">Robin</a>, <AppDate :timestamp="thread.publishedAt"/>.
-      <span style="float:right; margin-top: 2px;" class="hide-mobile text-faded text-small">3 replies by 3 contributors</span>
+      <span style="float:right; margin-top: 2px;" class="hide-mobile text-faded text-small">{{ repliesCount }} replies by {{ contributersCount }} contributors</span>
     </p>
 
     <PostList :posts="posts"/>
@@ -43,21 +43,24 @@ export default {
     thread () {
       return this.$store.state.threads[this.id]
     },
+    repliesCount () {
+      return this.$store.getters.threadRepliesCount(this.thread['.key'])
+    },
+    contributersCount () {
+      // find the replies
+      const replies = Object.keys(this.thread.posts)
+        .filter(postId => postId !== this.thread.firstPostId)
+        .map(postId => this.$store.state.posts[postId])
+      // get the user ids
+      const userIds = replies.map(post => post.userId)
+      // count the unique ids
+      return userIds.filter((item, index) => index === userIds.indexOf(item)).length
+    },
     posts () {
       const postIds = Object.values(this.thread.posts)
       return Object.values(this.$store.state.posts)
         .filter(post => postIds.includes(post['.key']))
     }
   }
-  // methods: {
-  //   addPost (post) {
-      // const post = eventData.post
-      // const postId = post['.key']
-      // this.$store.dispatch('createPost', post)
-      // this.$set(this.$store.state.posts, postId, post)
-      // this.$set(this.thread.posts, postId, postId)
-  //     // this.$set(this.$store.state.users[post.userId].posts, postId, postId)
-  //   }
-  // }
 }
 </script>
