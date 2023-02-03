@@ -3,7 +3,7 @@
     <TheNavbar/>
     <div class="container">
       <router-view v-show="showPage" @ready="showPage = true"/>
-      <div v-show="!showPage">loading...</div>
+      <AppSpinner v-show="!showPage">.</AppSpinner>
     </div>
 
   </div>
@@ -11,9 +11,11 @@
 
 <script>
 import TheNavbar from '@/components/TheNavbar.vue'
+import AppSpinner from './components/AppSpinner.vue'
 export default {
   components: {
-    TheNavbar
+    TheNavbar,
+    AppSpinner
   },
 
   data () {
