@@ -1,7 +1,7 @@
 <template>
-  <div class="post">
+  <div v-if="post && user" class="post">
 
-    <div v-if="post && user" class="user-info">
+    <div class="user-info">
       <a href="#" class="user-name">{{ user.name }}</a>
       <a href="profile.html#profile-details">
         <img class="avatar-large" :src="user.avatar" alt="">

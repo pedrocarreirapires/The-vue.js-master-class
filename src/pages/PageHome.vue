@@ -19,22 +19,22 @@ export default {
     }
   },
   beforeCreate () {
-    console.log('beforeCreate', this.categories)
+    // console.log('beforeCreate', this.categories)
   },
   created () {
-    console.log('created', this.categories)
+    // console.log('created', this.categories)
   },
   beforeMount () {
-    console.log('beforeMount', this.categories)
+    // console.log('beforeMount', this.categories)
   },
   mounted () {
-    console.log('mounted', this.categories, this.$el.innerText)
+    // console.log('mounted', this.categories, this.$el.innerText)
   },
   beforeDestroy () {
-    console.log('beforeDestroy', this.categories)
+    // console.log('beforeDestroy', this.categories)
   },
   destroyed () {
-    console.log('destroyed', this.categories)
+    // console.log('destroyed', this.categories)
   }
 }
 </script>
