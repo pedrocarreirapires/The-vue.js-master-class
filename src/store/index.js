@@ -112,47 +112,34 @@ export default new Vuex.Store({
     updateUser ({commit}, user) {
       commit('setUser', {userId: user['.key'], user})
     },
-    fetchThread ({state, commit}, {id}) {
-      return new Promise((resolve, reject) => {
-        console.log('ola', id)
-        firebase.database().ref('threads').child(id).once('value', snapshot => {
-          const thread = snapshot.val()
-          commit('setThread', {threadId: snapshot.key, thread: {...thread, '.key': snapshot.key}})
-          resolve(state.threads[id])
-        })
-      })
+    fetchThread ({dispatch}, {id}) {
+      return dispatch('fetchItem', {resource: 'threads', id, emoji: '?'})
     },
-    fetchUser ({state, commit}, {id}) {
-      return new Promise((resolve, reject) => {
-        console.log('ola2', id)
-        firebase.database().ref('users').child(id).once('value', snapshot => {
-          const user = snapshot.val()
-          commit('setUser', {userId: snapshot.key, user: {...user, '.key': snapshot.key}})
-          resolve(state.users[id])
-        })
-      })
+    fetchUser ({dispatch}, {id}) {
+      return dispatch('fetchItem', {resource: 'users', id, emoji: 'o_o'})
     },
-    fetchPost ({state, commit}, {id}) {
+    fetchPost ({dispatch}, {id}) {
+      return dispatch('fetchItem', {resource: 'posts', id, emoji: '!'})
+    },
+    fetchItem ({state, commit}, {id, emoji, resource}) {
       return new Promise((resolve, reject) => {
-        console.log('ola3', id)
-        firebase.database().ref('posts').child(id).once('value', snapshot => {
-          const post = snapshot.val()
-          commit('setPost', {postId: snapshot.key, post: {...post, '.key': snapshot.key}})
-          resolve(state.posts[id])
+        console.log('ola3', emoji, id)
+        firebase.database().ref(resource).child(id).once('value', snapshot => {
+          commit('setItem', {resource, id: snapshot.key, item: snapshot.val()})
+          resolve(state[resource][id])
         })
       })
     }
   },
   mutations: {
-    setPost (state, {post, postId}) {
-      Vue.set(state.posts, postId, post)
+    setPost (state, {post, postId}) { Vue.set(state.posts, postId, post) },
+    setUser (state, {user, userId}) { Vue.set(state.users, userId, user) },
+    setThread (state, {thread, threadId}) { Vue.set(state.threads, threadId, thread) },
+    setItem (state, {item, id, resource}) {
+      item['.key'] = id
+      Vue.set(state[resource], id, item)
     },
-    setUser (state, {user, userId}) {
-      Vue.set(state.users, userId, user)
-    },
-    setThread (state, {thread, threadId}) {
-      Vue.set(state.threads, threadId, thread)
-    },
+
     appendPostToThread: makeAppendChildToParentMutation({parent: 'threads', child: 'posts'}),
     appendPostToUser: makeAppendChildToParentMutation({parent: 'users', child: 'posts'}),
     appendThreadToForum: makeAppendChildToParentMutation({parent: 'forums', child: 'threads'}),
