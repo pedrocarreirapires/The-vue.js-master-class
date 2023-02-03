@@ -42,7 +42,7 @@
       </ul>
 
 
-      <li class="navbar-user">
+      <li class="navbar-user" v-if="user">
         <router-link :to="{name: 'Profile'}">
           <img :src="user.avatar" alt="" class="avatar-small">
           <span>
