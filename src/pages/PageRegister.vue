@@ -46,6 +46,7 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/database'
+
 export default {
   data () {
     return {
@@ -65,6 +66,7 @@ export default {
           return this.$store.dispatch('createUser', {id: user.uid, ...this.form})
         })
         .then(() => this.$router.push('/'))
+      console.log(this.form)
     }
   },
   created () {

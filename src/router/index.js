@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/pages/PageHome'
-import ThreadShow from '@/pages/PageThreadShow'
-import ThreadEdit from '@/pages/PageThreadEdit'
-import ThreadCreate from '@/pages/PageThreadCreate'
-import NotFound from '@/pages/PageNotFound'
-import Forum from '@/pages/PageForum'
-import Profile from '@/pages/PageProfile'
-import Category from '@/pages/PageCategory'
+import Home from '../pages/PageHome'
+import ThreadShow from '../pages/PageThreadShow'
+import ThreadEdit from '../pages/PageThreadEdit'
+import ThreadCreate from '../pages/PageThreadCreate'
+import NotFound from '../pages/PageNotFound'
+import Forum from '../pages/PageForum'
+import Profile from '../pages/PageProfile'
+import Register from '../pages/PageRegister'
+import Category from '../pages/PageCategory'
 
 Vue.use(Router)
 
@@ -59,6 +60,12 @@ export default new Router({
       name: 'ProfileEdit',
       component: Profile,
       props: {edit: true}
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register,
+      props: true
     },
     {
       path: '*',
