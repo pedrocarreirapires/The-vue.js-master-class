@@ -43,9 +43,6 @@
 </template>
 
 <script>
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
-import 'firebase/compat/database'
 
 export default {
   data () {
@@ -61,11 +58,6 @@ export default {
   },
   methods: {
     register () {
-      firebase.auth().createUserWithEmailAndPassword(this.form.email, this.form.password)
-        .then(user => {
-          return this.$store.dispatch('createUser', {id: user.uid, ...this.form})
-        })
-        .then(() => this.$router.push('/'))
       console.log(this.form)
     }
   },
