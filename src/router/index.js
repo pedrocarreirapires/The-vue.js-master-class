@@ -64,8 +64,7 @@ export default new Router({
     {
       path: '/register',
       name: 'Register',
-      component: Register,
-      props: true
+      component: Register
     },
     {
       path: '*',
