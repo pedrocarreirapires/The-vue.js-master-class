@@ -10,6 +10,7 @@ import Profile from '../pages/PageProfile'
 import Register from '../pages/PageRegister'
 import SignIn from '../pages/PageSingIn'
 import Category from '../pages/PageCategory'
+import store from '../store'
 
 Vue.use(Router)
 
@@ -54,7 +55,14 @@ export default new Router({
       path: '/me',
       name: 'Profile',
       component: Profile,
-      props: true
+      props: true,
+      beforeEnter (to, from, next) {
+        if (store.state.authId) {
+          next()
+        } else {
+          next({name: 'Home'})
+        }
+      }
     },
     {
       path: '/me/edit',
@@ -71,6 +79,13 @@ export default new Router({
       path: '/signin',
       name: 'SignIn',
       component: SignIn
+    },
+    {
+      path: '/logout',
+      name: 'SignOut',
+      beforeEnter (to, from, next) {
+        store.dispatch('signOut').then(() => next({name: 'Home'}))
+      }
     },
     {
       path: '*',

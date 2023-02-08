@@ -33,7 +33,6 @@ import PostList from '../components/PostList.vue'
 import UserProfileCard from '../components/UserProfileCard.vue'
 import UserProfileCardEditor from '../components/UserProfileCardeditor.vue'
 import {mapGetters} from 'vuex'
-import store from '../store'
 
 export default {
   components: {
@@ -58,13 +57,6 @@ export default {
           .filter(post => post.userId === this.user['.key'])
       }
       return []
-    }
-  },
-  beforeRouteEnter (to, from, next) {
-    if (store.state.authId) {
-      next()
-    } else {
-      next({name: 'Home'})
     }
   },
   created () {
