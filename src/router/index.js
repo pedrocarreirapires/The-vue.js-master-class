@@ -8,6 +8,7 @@ import NotFound from '../pages/PageNotFound'
 import Forum from '../pages/PageForum'
 import Profile from '../pages/PageProfile'
 import Register from '../pages/PageRegister'
+import SignIn from '../pages/PageSingIn'
 import Category from '../pages/PageCategory'
 
 Vue.use(Router)
@@ -65,6 +66,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/signin',
+      name: 'SignIn',
+      component: SignIn
     },
     {
       path: '*',
