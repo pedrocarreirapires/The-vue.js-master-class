@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from '@/store'
-import AppDate from '@/components/AppDate'
+import store from './store'
+import AppDate from './components/AppDate'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/database'
@@ -22,6 +22,13 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APP_ID
 }
 firebase.initializeApp(firebaseConfig)
+
+firebase.auth()
+  .onAuthStateChanged(user => {
+    if (user) {
+      store.dispatch('fetchAuthUser')
+    }
+  })
 
 /* eslint-disable no-new */
 new Vue({
