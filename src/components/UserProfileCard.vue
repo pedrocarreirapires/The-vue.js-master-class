@@ -12,7 +12,7 @@
       <p class="text-lead">{{ user.name }}</p>
 
       <p class="text-justify">
-        <span v-if="user.bio"> {{ user.bio }} </span>
+        <span v-if="user.bio">{{user.bio}}</span>
         <span v-else>No bio specified.</span>
       </p>
 
@@ -23,12 +23,8 @@
         <span>{{ userPostsCount }} posts</span>
         <span>{{ userThreadsCount }} threads</span>
       </div>
-
       <hr>
-
-      <p v-if="user.website" class="text-large text-center"><i class="fa fa-globe"></i> <a
-        :href="user.website">{{ user.website }}</a></p>
-
+      <p v-if="user.website" class="text-large text-center"><i class="fa fa-globe"></i> <a :href="user.website">{{user.website}}</a></p>
     </div>
 
     <p class="text-xsmall text-faded text-center">Member since june 2003, last visited 4 hours ago</p>
