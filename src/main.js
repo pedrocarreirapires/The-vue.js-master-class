@@ -8,7 +8,9 @@ import AppDate from './components/AppDate'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/database'
+import vuelidate from 'vuelidate'
 
+Vue.use(vuelidate)
 Vue.component('AppDate', AppDate)
 Vue.config.productionTip = false
 
