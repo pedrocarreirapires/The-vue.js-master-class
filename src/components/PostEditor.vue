@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
   props: {
     threadId: {
@@ -53,6 +55,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('posts', ['createPost', 'updatePost']),
     save () {
       this.persist()
         .then(post => {
@@ -67,7 +70,7 @@ export default {
       }
       this.txtPost = ''
        // pasing to the parent
-      return this.$store.dispatch('createPost', post)
+      return this.createPost(post)
     },
     cancel () {
       this.$emit('cancel')
@@ -77,7 +80,7 @@ export default {
         id: this.post['.key'],
         text: this.txtPost
       }
-      return this.$store.dispatch('updatePost', payload)
+      return this.updatePost(payload)
     },
     persist () {
       return this.isUpdate ? this.update() : this.create()

@@ -21,13 +21,15 @@ export default {
   mixins: [asyncDataStatus],
   computed: {
     categories () {
-      return Object.values(this.$store.state.categories)
+      return Object.values(this.$store.state.categories.items)
     }
   },
   methods: {
-    ...mapActions(['fetchAllCategories', 'fetchForums'])
+    ...mapActions('categories', ['fetchAllCategories']),
+    ...mapActions('forums', ['fetchForums'])
   },
   created () {
+    console.log('Page Home created')
     this.fetchAllCategories()
       .then(categories => {
         Promise.all(categories.map(category => this.fetchForums({ids: Object.keys(category.forums)})))

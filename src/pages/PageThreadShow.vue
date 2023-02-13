@@ -14,7 +14,7 @@
       </h1>
 
     <p>
-      By <a href="#" class="link-unstyled">{{ user.name }}</a>, <AppDate :timestamp="thread.publishedAt"/>.
+      By <a href="#" class="link-unstyled">{{ user.name }}</a>, <AppDate :timestamp="thread.publishedAt"/>
       <span style="float:right; margin-top: 2px;" class="hide-mobile text-faded text-small">{{ repliesCount }} replies by {{ contributersCount }} contributors</span>
     </p>
 
@@ -36,7 +36,6 @@ import PostEditor from '../components/PostEditor.vue'
 import {countObjectProperties} from '../utils'
 import {mapActions, mapGetters} from 'vuex'
 import asyncDataStatus from '../mixins/asyncDataStatus'
-
 export default {
   components: {
     PostList,
@@ -51,30 +50,34 @@ export default {
   },
   computed: {
     ...mapGetters({
-      authUser: 'authUser'
+      authUser: 'auth/authUser'
     }),
     thread () {
-      return this.$store.state.threads[this.id]
+      return this.$store.state.threads.items[this.id]
     },
     repliesCount () {
-      return this.$store.getters.threadRepliesCount(this.thread['.key'])
+      return this.$store.getters['threads/threadRepliesCount'](this.thread['.key'])
     },
     user () {
-      return this.$store.state.users[this.thread.userId]
+      return this.$store.state.users.items[this.thread.userId]
     },
     contributersCount () {
       return countObjectProperties(this.thread.contributors)
     },
     posts () {
       const postIds = Object.values(this.thread.posts)
-      return Object.values(this.$store.state.posts)
+      return Object.values(this.$store.state.posts.items)
         .filter(post => postIds.includes(post['.key']))
     }
   },
   methods: {
-    ...mapActions(['fetchPosts', 'fetchThread', 'fetchUser', 'fetchUser'])
+    ...mapActions('posts', ['fetchPosts']),
+    ...mapActions('threads', ['fetchThread']),
+    ...mapActions('users', ['fetchUser'])
+
   },
   created () {
+    console.log('Page Thread Created')
   // fetch thread
     this.fetchThread({id: this.id})
       .then(thread => {

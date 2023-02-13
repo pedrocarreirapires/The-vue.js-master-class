@@ -36,14 +36,15 @@ export default {
 
   computed: {
     forum () {
-      return this.$store.state.forums[this.forumId]
+      return this.$store.state.forums.items[this.forumId]
     },
     hasUnsavedChanges () {
       return (this.$refs.editor.form.title || this.$refs.editor.form.text) && !this.saved
     }
   },
   methods: {
-    ...mapActions(['createThread', 'fetchForum']),
+    ...mapActions('threads', ['createThread']),
+    ...mapActions('forums', ['fetchForum']),
     save ({title, text}) { // pq vem do ThreadEditor por 'payload'
       this.createThread({
         forumId: this.forum['.key'],

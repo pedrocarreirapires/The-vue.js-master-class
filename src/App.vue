@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import TheNavbar from '@/components/TheNavbar.vue'
+import TheNavbar from './components/TheNavbar.vue'
 import AppSpinner from './components/AppSpinner.vue'
 import NProgress from 'nprogress'
 export default {
@@ -18,7 +18,6 @@ export default {
     TheNavbar,
     AppSpinner
   },
-
   data () {
     return {
       showPage: false

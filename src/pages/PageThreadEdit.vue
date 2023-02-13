@@ -36,10 +36,10 @@ export default {
   },
   computed: {
     thread () {
-      return this.$store.state.threads[this.id]
+      return this.$store.state.threads.items[this.id]
     },
     text () {
-      const post = this.$store.state.posts[this.thread.firstPostId]
+      const post = this.$store.state.posts.items[this.thread.firstPostId]
       return post ? post.text : null
     },
     hasUnsavedChanges () {
@@ -47,7 +47,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateThread', 'fetchThread', 'fetchPost']),
+    ...mapActions('threads', ['updateThread', 'fetchThread']),
+    ...mapActions('posts', ['fetchPost']),
     save ({title, text}) { // pq vem do ThreadEditor por parametro
       this.updateThread({
         id: this.id,
@@ -63,6 +64,7 @@ export default {
     }
   },
   created () {
+    console.log('Page Thread Edit created')
     this.fetchThread({id: this.id})
       .then(thread => this.fetchPost({id: thread.firstPostId}))
       .then(() => { this.asyncDataStatus_fetched() })
