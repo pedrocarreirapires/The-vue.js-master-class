@@ -1,0 +1,97 @@
+*******************************************************************************************************
+					     Vue
+*******************************************************************************************************
+
+   scoped css -> Allows you to apply styles only to the elements within a specific component, rather                  than affecting the entire application. 
+
+		<template>
+  		   <div>
+    		      <h1>Hello World</h1>
+  		   </div>
+		</template>
+
+		<style scoped>
+  		   h1 {
+    		      color: red;
+  		   }	
+		</style>
+
+   - In this example, the h1 tag will be red color within the component, but will not affect any other      h1 tags outside of the component.
+
+   - It's important to note that scoped styles only apply to the template of the component and not to      the child components.
+
+*******************************************************************************************************
+
+   Create a route:
+	-> Create component
+ 	-> 
+
+
+ 			<router-link :to="{name: 'ThreadShow', params: {id: thread['.key']}}">
+          			{{thread.title}}	^			       ^	
+        		</router-link>			|			       |
+							|			       |
+	       --------------- This name ---------------|			       |
+	       |	      {							       |	 
+      	       |		 path: '/thread/:id', <------------- This id, is this param
+      	       |		 name: 'ThreadShow',
+      	       |-- This Comp --> component: ThreadShow,
+      				 props: true
+    			      }
+
+
+
+
+PostItem ------> (Pai) ------------------------------------
+						          |
+<template>					          |       
+  <div class="post-list">				  |    
+	<PostListItem/>	<---------------------------------|      
+  </div>						  |       
+</template>						  |          
+							  |         
+<script>						  |
+import PostListItem from './PostListItem.vue' <----- Need to import the son class and ref the component						  		  |       |    
+export default {					  |  	  |      
+  components: {						  |       |
+    PostListItem <-------------------------------------------------
+  },					  		  |       
+}							  |         
+							  |
+//////////////////////////////////////////////////////////|////////////////////////////////////////////
+							  |
+						          |           
+PostItemList  -------> (Filho)				  |        
+export default {					  v
+  props: {
+    post: {		Bc this vue is the son of PostItem, we have to put always this
+      required: true,
+      type: Object
+    }
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   $emit -> method is used to trigger an event on the current instance, which can then be listened for 	    and handled by the parent component. It takes the event name as its first argument, and an 	    optional payload as the second argument.
+
+
+in our case, cumputed propertie, method and filters do the same thing;
+
+
+https://excalidraw.com/#json=z90juqQLEJlSYALZLbUON,iywxyICdcgrE6E1Uvw1sJw
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
